@@ -209,3 +209,138 @@ themeToggleBtn.addEventListener('click', () => {
         lucide.createIcons();
     }
 });
+
+// --- Project Modal Logic ---
+const modal = document.getElementById('project-modal');
+const modalContent = document.getElementById('modal-content');
+const modalBody = document.getElementById('modal-body');
+
+const projectData = {
+    'miyo': {
+        title: 'Miyo – AI Virtual Character Project',
+        description: `
+            <div class="space-y-6">
+                <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                    Miyo is an AI-based virtual character project designed to explore how personality, visuals, and interaction can be combined into a digital character experience.
+                </p>
+                
+                <div>
+                    <h4 class="text-xl font-bold text-dark dark:text-gray-100 mb-3">Key Features</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300 ml-2">
+                        <li>AI-driven character interactions</li>
+                        <li>Dynamic visual personality expression</li>
+                        <li>Interactive web-based presentation</li>
+                        <li>Integration of modern frontend & AI tools</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-bold text-dark dark:text-gray-100 mb-3">About the Project</h4>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                        The project focuses on character presentation, background design, motion styling, and AI-assisted content creation. Using modern tools and AI workflows, Miyo represents an experiment in building engaging virtual identities that can be used for content, branding, or interactive experiences.
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-300 leading-relaxed mt-4">
+                        This project reflects my interest in blending creativity, frontend visuals, and AI-powered workflows to build expressive digital characters.
+                    </p>
+                </div>
+            </div>
+        `
+    }
+    // Add more projects here if needed
+};
+
+function openModal(projectId) {
+    const data = projectData[projectId];
+    if (!data) return;
+
+    modalBody.innerHTML = `
+        <h2 class="text-3xl font-bold text-dark dark:text-gray-100 mb-6">${data.title}</h2>
+        ${data.description}
+    `;
+
+    modal.classList.remove('hidden');
+    // Small delay to allow display:block to apply before changing opacity for transition
+    setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        modalContent.classList.remove('scale-95');
+        modalContent.classList.add('scale-100');
+    }, 10);
+
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+function closeModal() {
+    modal.classList.add('opacity-0');
+    modalContent.classList.remove('scale-100');
+    modalContent.classList.add('scale-95');
+
+    setTimeout(() => {
+        modal.classList.add('hidden');
+        document.body.style.overflow = ''; // Restore scrolling
+    }, 300); // Match transition duration
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+    }
+});
+
+// --- Pagination Logic ---
+const setupPagination = (itemsPerPage = 4) => {
+    const projectGrid = document.getElementById('projects-grid');
+    if (!projectGrid) return;
+
+    const projectCards = Array.from(projectGrid.children);
+    const paginationControls = document.getElementById('pagination-controls');
+    const totalPages = Math.ceil(projectCards.length / itemsPerPage);
+
+    if (totalPages <= 1) {
+        paginationControls.style.display = 'none';
+        projectCards.forEach(card => card.style.display = '');
+        return;
+    }
+
+    const showPage = (page) => {
+        const start = (page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+
+        projectCards.forEach((card, index) => {
+            if (index >= start && index < end) {
+                card.style.display = '';
+                // Optional: Re-trigger animation if needed, but display block is enough
+                gsap.fromTo(card, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 });
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        renderControls(page);
+        ScrollTrigger.refresh();
+    };
+
+    const renderControls = (currentPage) => {
+        paginationControls.innerHTML = '';
+
+        for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement('button');
+            btn.textContent = i;
+            btn.className = `w-10 h-10 rounded-full font-bold transition-all ${i === currentPage
+                ? 'bg-primary text-white shadow-lg scale-110'
+                : 'bg-white dark:bg-slate-800 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700'
+                }`;
+            btn.onclick = () => showPage(i);
+            paginationControls.appendChild(btn);
+        }
+    };
+
+    // Initialize Page 1
+    showPage(1);
+
+    // Refresh ScrollTrigger after layout changes
+    ScrollTrigger.refresh();
+};
+
+// Start pagination after load
+window.addEventListener('load', () => setupPagination(4)); // 4 items per page as requested

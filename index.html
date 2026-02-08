@@ -207,7 +207,7 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Project 1 -->
                 <div class="group bg-white dark:bg-slate-800 p-5 rounded-3xl shadow-sm border border-gray-100 dark:border-slate-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-[10px] project-card">
                     <div class="h-64 rounded-2xl bg-gray-100 dark:bg-slate-700 flex items-center justify-center relative overflow-hidden mb-6 group-hover:shadow-inner transition-all">
@@ -267,6 +267,33 @@
 
                 <!-- Project 3 -->
                 <div class="group bg-white dark:bg-slate-800 p-5 rounded-3xl shadow-sm border border-gray-100 dark:border-slate-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-[10px] project-card">
+                    <div class="h-64 rounded-2xl bg-gray-100 dark:bg-slate-700 flex items-center justify-center relative overflow-hidden mb-6 group-hover:shadow-inner transition-all">
+                        <img src="assets/miyo-card.png" alt="Miyo Project" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                         <!-- Mockup Circle -->
+                         <div class="absolute bottom-4 right-4 w-12 h-12 bg-white/20 dark:bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white z-10">
+                            <i data-lucide="bot" width="20"></i>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-dark dark:text-gray-100 mb-2">Miyo – AI Virtual Character Project</h3>
+                    <p class="text-gray-500 dark:text-gray-400 mb-6 leading-relaxed">
+                        An AI-powered virtual character project that serves as a personal AI assistant, featuring interactive conversations, personality-driven responses, and a unique visual identity.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-8">
+                        <span class="px-4 py-1.5 bg-blue-50 text-blue-600 text-xs font-bold rounded-lg">HTML</span>
+                        <span class="px-4 py-1.5 bg-blue-50 text-blue-600 text-xs font-bold rounded-lg">CSS</span>
+                        <span class="px-4 py-1.5 bg-blue-50 text-blue-600 text-xs font-bold rounded-lg">JavaScript</span>
+                        <span class="px-4 py-1.5 bg-blue-50 text-blue-600 text-xs font-bold rounded-lg">AI Tools</span>
+                    </div>
+                    
+                    <div class="flex items-center gap-4">
+                        <button onclick="openModal('miyo')" class="flex items-center gap-2 text-sm font-medium text-dark dark:text-gray-200 hover:text-primary dark:hover:!text-cyan-300 dark:hover:drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] transition-all"><i data-lucide="eye" width="18"></i> View Details</button>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="group bg-white dark:bg-slate-800 p-5 rounded-3xl shadow-sm border border-gray-100 dark:border-slate-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-[10px] project-card">
                     <div class="h-64 rounded-2xl bg-gradient-to-r from-orange-400 to-red-300 flex items-center justify-center relative overflow-hidden mb-6 group-hover:shadow-inner transition-all">
                         <div class="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all"></div>
                         <h3 class="text-white text-3xl font-bold opacity-40 transform rotate-12 select-none">Gaming</h3>
@@ -293,7 +320,7 @@
                     </div>
                 </div>
 
-                <!-- Project 4 -->
+                <!-- Project 5 -->
                 <div class="group bg-white dark:bg-slate-800 p-5 rounded-3xl shadow-sm border border-gray-100 dark:border-slate-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-[10px] project-card">
                     <div class="h-64 rounded-2xl bg-gradient-to-r from-green-400 to-emerald-300 flex items-center justify-center relative overflow-hidden mb-6 group-hover:shadow-inner transition-all">
                         <div class="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-all"></div>
@@ -320,6 +347,10 @@
                         <a href="#" class="flex items-center gap-2 text-sm font-medium text-dark dark:text-gray-200 hover:text-primary dark:hover:!text-cyan-300 dark:hover:drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] transition-all"><i data-lucide="external-link" width="18"></i> Live Demo</a>
                     </div>
                 </div>
+            </div>
+            <!-- Pagination Controls -->
+            <div id="pagination-controls" class="flex justify-center mt-12 gap-2 fade-up">
+                <!-- Buttons injected by JS -->
             </div>
         </div>
     </section>
@@ -467,6 +498,23 @@
             </div>
         </div>
     </footer>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="fixed inset-0 z-[100] hidden opacity-0 transition-opacity duration-300">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
+        
+        <!-- Modal Content -->
+        <div class="relative bg-white dark:bg-slate-800 w-full max-w-2xl mx-auto mt-20 md:mt-32 p-8 rounded-3xl shadow-2xl transform scale-95 transition-transform duration-300" id="modal-content">
+            <button onclick="closeModal()" class="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors">
+                <i data-lucide="x" class="text-gray-500 dark:text-gray-400"></i>
+            </button> <!-- Added missing closing definition for modal-content -->
+
+            <div id="modal-body">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="https://unpkg.com/lucide@latest"></script>
